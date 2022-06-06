@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isAuth, setIsAuth] = useState("");
+  const [isAuth, setIsAuth] = useState();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -17,9 +17,10 @@ export const AuthProvider = ({ children }) => {
       .post("https://reqres.in/api/login", { email, password })
       .then(({ data }) => {
         localStorage.setItem("token", data.token);
-        setIsAuth(data.token);
+        setIsAuth(true);
       });
   };
+  // console.log(isAuth)
 
   const logout = () => {
     localStorage.setItem("token", "");
@@ -28,7 +29,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (isAuth) {
-      navigate({ replace: true });
+      navigate("");
     } else {
       navigate("/login");
     }
