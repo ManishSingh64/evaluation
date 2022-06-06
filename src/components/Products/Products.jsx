@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useContext,useState,useEffect } from "react";
 import { Product } from './Product'
 import {AuthContext} from '../../context/AuthContext';
+import styles from './Products.module.css';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -13,7 +14,7 @@ const Products = () => {
   }, []);
   console.log(products)
   return <div>
-    <div>
+    <div className= {styles.box}>
       {products.map((product) =>(
        <Product key={product.id} {...product}/>
       ))}
